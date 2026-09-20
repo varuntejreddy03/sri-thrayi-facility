@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #0B0D11;
+    color: #13161D;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Warm Architectural Grid & Ambient Patterns */
+.bg-grid-architectural {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(197, 160, 89, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(197, 160, 89, 0.05) 1px, transparent 1px);
+}
+
+.bg-grid-fine-dark {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Warm Metallic Text Gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF5E1 0%, #D8B26E 40%, #C5A059 70%, #9B7836 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-subtle {
+  background: linear-gradient(135deg, #F8F5EE 0%, #E0C58A 50%, #C5A059 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Brushed Champagne Metallic Button Sheen */
+.btn-gold-metallic {
+  background: linear-gradient(135deg, #DFBE7A 0%, #C5A059 50%, #A67E36 100%);
+  box-shadow: 0 4px 20px -2px rgba(197, 160, 89, 0.35);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-gold-metallic:hover {
+  background: linear-gradient(135deg, #EAD096 0%, #D4AF67 50%, #B88E44 100%);
+  box-shadow: 0 6px 28px -2px rgba(197, 160, 89, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Architectural Corner Registry Accents */
+.corner-accent-tl {
+  position: relative;
+}
+.corner-accent-tl::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #C5A059;
+  border-left: 2px solid #C5A059;
+  pointer-events: none;
+}
+
+/* Refined Dark Glassmorphism for Navbar */
+.nav-blur-charcoal {
+  background-color: rgba(11, 13, 17, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0D11;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #212631;
+  border-radius: 4px;
+  border: 2px solid #0B0D11;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A059;
+}
+
+/* Custom scrollbar for modals & nested scrollable containers */
+.custom-modal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #C5A059 #181C25;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.custom-modal-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.custom-modal-scrollbar::-webkit-scrollbar-track {
+  background: #181C25;
+  border-radius: 9999px;
+  margin: 6px 0;
+}
+
+.custom-modal-scrollbar::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 9999px;
+  border: 1px solid #13161D;
+}
+
+.custom-modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #DFC68E;
+}
