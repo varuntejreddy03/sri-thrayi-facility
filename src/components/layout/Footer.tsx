@@ -27,12 +27,9 @@ export const Footer: React.FC<FooterProps> = ({ onRequestAssessment }) => {
             <Link to="/" className="inline-block group focus:outline-none">
               <div className="relative overflow-hidden rounded py-1 px-1 transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(197,160,89,0.4)]">
                 <img
-                  src="/images/logo/logo-full.webp"
+                  src="/images/logo/logo-brand.png"
                   alt="Sri Thrayi Facility"
-                  className="h-16 w-auto object-contain"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/logo/logo-full.png';
-                  }}
+                  className="h-16 w-auto object-contain transition-all duration-300 drop-shadow-[0_2px_12px_rgba(201,164,92,0.3)] group-hover:drop-shadow-[0_0_18px_rgba(201,164,92,0.6)]"
                 />
               </div>
             </Link>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { SEO } from '../components/common/SEO';
 import { SERVICES_DATA } from '../data/services';
-import { Shield, Zap, Droplets, Trees, Sparkles, ArrowRight, CheckCircle2, Layers } from 'lucide-react';
+import { Shield, Zap, Flame, Droplets, Filter, Sparkles, Trees, Bug, Building, ArrowRight, CheckCircle2, Layers } from 'lucide-react';
 
 interface ContextType {
   openAssessmentModal: () => void;
@@ -11,9 +11,13 @@ interface ContextType {
 const iconMap: Record<string, React.ReactNode> = {
   Shield: <Shield className="w-6 h-6 text-gold" />,
   Zap: <Zap className="w-6 h-6 text-gold" />,
+  Flame: <Flame className="w-6 h-6 text-gold" />,
   Droplets: <Droplets className="w-6 h-6 text-gold" />,
-  Trees: <Trees className="w-6 h-6 text-gold" />,
+  Filter: <Filter className="w-6 h-6 text-gold" />,
   Sparkles: <Sparkles className="w-6 h-6 text-gold" />,
+  Trees: <Trees className="w-6 h-6 text-gold" />,
+  Bug: <Bug className="w-6 h-6 text-gold" />,
+  Building: <Building className="w-6 h-6 text-gold" />,
 };
 
 export const ServicesPage: React.FC = () => {
@@ -23,7 +27,7 @@ export const ServicesPage: React.FC = () => {
     <div className="bg-obsidian text-ivory pt-24 pb-16">
       <SEO
         title="Facility Services | Sri Thrayi Facility - Hyderabad"
-        description="Comprehensive facility management services in Hyderabad: Security, Electrical, Plumbing, Landscaping & Gardening, and Housekeeping Services."
+        description="Comprehensive facility management services in Hyderabad: Security, Electrical, Fire Safety, Plumbing, WTP & STP, Housekeeping, Landscape & Garden, Pesticide, and Clubhouse Management."
         canonicalPath="/services"
       />
 
@@ -48,12 +52,12 @@ export const ServicesPage: React.FC = () => {
             <span className="text-gold-gradient italic block sm:inline">Coordinated & Dependable.</span>
           </h1>
           <p className="text-base sm:text-lg text-softgrey font-light max-w-2xl mx-auto leading-relaxed">
-            Consolidate property upkeep through one disciplined partner. We provide specialized personnel, routines, and supervisory management across five core disciplines.
+            Consolidate property upkeep through one disciplined partner. We provide specialized personnel, routines, and supervisory management across nine integrated disciplines.
           </p>
         </div>
       </section>
 
-      {/* 5 Service Detailed Showcases */}
+      {/* 9 Service Detailed Showcases */}
       <section className="py-16 sm:py-24 bg-white text-charcoal">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 sm:space-y-28">
           {SERVICES_DATA.map((service, index) => {

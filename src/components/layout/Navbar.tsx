@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Phone, MessageSquare, Shield, Zap, Droplets, Trees, Sparkles, MapPin } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, MessageSquare, Shield, Zap, Flame, Droplets, Filter, Sparkles, Trees, Bug, Building, MapPin } from 'lucide-react';
 import { COMPANY_CONFIG } from '../../data/config';
 import { SERVICES_DATA } from '../../data/services';
 
@@ -11,21 +11,55 @@ interface NavbarProps {
 const serviceIcons: Record<string, React.ReactNode> = {
   security: <Shield className="w-4 h-4 text-gold" />,
   electrical: <Zap className="w-4 h-4 text-gold" />,
+  fire: <Flame className="w-4 h-4 text-gold" />,
   plumbing: <Droplets className="w-4 h-4 text-gold" />,
-  landscaping: <Trees className="w-4 h-4 text-gold" />,
+  'wtp-stp': <Filter className="w-4 h-4 text-gold" />,
   housekeeping: <Sparkles className="w-4 h-4 text-gold" />,
+  landscaping: <Trees className="w-4 h-4 text-gold" />,
+  pesticide: <Bug className="w-4 h-4 text-gold" />,
+  clubhouse: <Building className="w-4 h-4 text-gold" />,
 };
 
 export const Navbar: React.FC<NavbarProps> = ({ onRequestAssessment }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const lastScrollY = useRef(0);
   const location = useLocation();
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+
+          // Top view (Hero top): always visible
+          if (currentScrollY <= 40) {
+            setNavVisible(true);
+            setIsScrolled(false);
+          } else {
+            setIsScrolled(true);
+
+            // Scroll down towards footer: hide navbar
+            if (currentScrollY > lastScrollY.current) {
+              setNavVisible(false);
+              setServicesDropdownOpen(false);
+            } 
+            // Scroll up towards hero: show navbar
+            else if (currentScrollY < lastScrollY.current) {
+              setNavVisible(true);
+            }
+          }
+
+          lastScrollY.current = Math.max(0, currentScrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -71,45 +105,32 @@ export const Navbar: React.FC<NavbarProps> = ({ onRequestAssessment }) => {
 
       {/* Main Sticky Navbar */}
       <header
-        className={`fixed top-0 lg:top-[29px] left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-40 transition-all duration-300 ease-in-out ${
+          navVisible
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0 pointer-events-none'
+        } ${
           isScrolled
-            ? 'bg-obsidian/95 backdrop-blur-md border-b border-gold/25 py-3 shadow-elevated-dark'
-            : 'bg-gradient-to-b from-obsidian/95 via-obsidian/70 to-transparent py-4'
+            ? 'top-0 bg-obsidian/95 backdrop-blur-md border-b border-gold/25 py-1.5 shadow-elevated-dark'
+            : 'top-0 lg:top-[29px] bg-gradient-to-b from-obsidian/95 via-obsidian/70 to-transparent py-2'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo Lockup: Seamless Transparent Monogram + Typography */}
+          {/* Brand Logo: Official 3D Metallic STF & Sri Thrayi Facility Logo (Horizontal Navbar Lockup) */}
           <Link
             to="/"
-            className="group flex items-center gap-3.5 focus:outline-none"
+            className="group flex items-center focus:outline-none py-0.5"
             aria-label="Sri Thrayi Facility - Home"
           >
-            {/* STF Golden 3D Metallic Monogram (Transparent Alpha, no dark box border) */}
             <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="/images/logo/emblem-transparent.png"
-                alt="Sri Thrayi Facility STF Monogram"
-                className="h-10 sm:h-12 w-auto object-contain transition-all duration-300 drop-shadow-[0_2px_8px_rgba(201,164,92,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(201,164,92,0.5)]"
+                src="/images/logo/logo-navbar-horizontal.png"
+                alt="Sri Thrayi Facility"
+                className="h-9 sm:h-10 lg:h-11 max-w-[220px] sm:max-w-[260px] lg:max-w-[300px] w-auto object-contain transition-all duration-300 drop-shadow-[0_2px_12px_rgba(201,164,92,0.35)] group-hover:drop-shadow-[0_0_18px_rgba(201,164,92,0.65)]"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/images/logo/logo-brand.png';
                 }}
               />
-            </div>
-
-            {/* Typography Wordmark */}
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-serif text-lg sm:text-xl tracking-wider text-white font-normal leading-none group-hover:text-gold transition-colors">
-                  SRI THRAYI
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5 mt-1">
-                <span className="h-[1px] w-3 bg-gold/60" />
-                <span className="text-[10px] sm:text-[11px] tracking-widest text-gold font-semibold uppercase leading-none">
-                  FACILITY
-                </span>
-                <span className="h-[1px] w-3 bg-gold/60" />
-              </div>
             </div>
           </Link>
 
@@ -161,31 +182,38 @@ export const Navbar: React.FC<NavbarProps> = ({ onRequestAssessment }) => {
               </button>
 
               {servicesDropdownOpen && (
-                <div className="absolute top-full left-0 w-80 pt-3 transition-all duration-200">
-                  <div className="bg-charcoal-900 border border-gold/30 rounded-lg shadow-elevated-dark p-2 text-xs space-y-1">
+                <div className="absolute top-full -left-20 w-[580px] pt-3 transition-all duration-200">
+                  <div className="bg-charcoal-900 border border-gold/30 rounded-xl shadow-elevated-dark p-3 text-xs">
                     <Link
                       to="/services"
-                      className="flex items-center justify-between p-2.5 rounded bg-charcoal-800/80 text-gold font-semibold border-b border-charcoal-700 pb-2 mb-1 hover:bg-charcoal-700"
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="flex items-center justify-between p-2.5 rounded-lg bg-charcoal-800/90 text-gold font-semibold border border-charcoal-700 mb-2 hover:bg-charcoal-700 hover:border-gold/40 transition-colors"
                     >
-                      <span>Overview of All 5 Services</span>
-                      <span className="text-[10px] uppercase tracking-wider text-white">View All →</span>
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+                        <span>Overview of All {SERVICES_DATA.length} Services</span>
+                      </div>
+                      <span className="text-[10px] uppercase tracking-wider text-white bg-gold/20 px-2 py-0.5 rounded border border-gold/30">View All →</span>
                     </Link>
 
-                    {SERVICES_DATA.map((service) => (
-                      <Link
-                        key={service.id}
-                        to={`/services/${service.slug}`}
-                        className="flex items-start gap-3 p-2.5 rounded hover:bg-charcoal-800 text-ivory/90 hover:text-gold transition-colors"
-                      >
-                        <div className="mt-0.5 p-1 rounded bg-charcoal-800 border border-charcoal-700 text-gold">
-                          {serviceIcons[service.id]}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-white">{service.title}</div>
-                          <div className="text-[11px] text-softgrey line-clamp-1">{service.shortDesc}</div>
-                        </div>
-                      </Link>
-                    ))}
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {SERVICES_DATA.map((service) => (
+                        <Link
+                          key={service.id}
+                          to={`/services/${service.slug}`}
+                          onClick={() => setServicesDropdownOpen(false)}
+                          className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-charcoal-800 text-ivory/90 hover:text-gold transition-colors border border-transparent hover:border-charcoal-700/60"
+                        >
+                          <div className="mt-0.5 p-1.5 rounded bg-charcoal-800 border border-charcoal-700 text-gold shrink-0">
+                            {serviceIcons[service.id]}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="font-semibold text-white truncate text-[12px]">{service.title}</div>
+                            <div className="text-[10px] text-softgrey line-clamp-1">{service.shortDesc}</div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
@@ -249,7 +277,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onRequestAssessment }) => {
 
         {/* Mobile Full-Screen / Slide-in Drawer */}
         {mobileMenuOpen && (
-          <div className="fixed inset-0 top-[68px] z-30 bg-obsidian-950/98 backdrop-blur-2xl border-t border-charcoal-800 lg:hidden overflow-y-auto px-6 py-8 flex flex-col justify-between">
+          <div className="fixed inset-0 top-[68px] sm:top-[74px] z-30 bg-obsidian-950/98 backdrop-blur-2xl border-t border-charcoal-800 lg:hidden overflow-y-auto px-6 py-8 flex flex-col justify-between">
             <div className="space-y-6">
               <nav className="flex flex-col space-y-4 text-base font-medium">
                 <Link

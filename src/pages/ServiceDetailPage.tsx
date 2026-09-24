@@ -3,7 +3,7 @@ import { useParams, Link, Navigate, useOutletContext } from 'react-router-dom';
 import { SEO } from '../components/common/SEO';
 import { SERVICES_DATA } from '../data/services';
 import { GoldDivider } from '../components/common/GoldDivider';
-import { Shield, Zap, Droplets, Trees, Sparkles, ArrowRight, CheckCircle, AlertTriangle, Building2 } from 'lucide-react';
+import { Shield, Zap, Flame, Droplets, Filter, Sparkles, Trees, Bug, Building, Building2, ArrowRight, CheckCircle, AlertTriangle } from 'lucide-react';
 
 interface ContextType {
   openAssessmentModal: () => void;
@@ -12,9 +12,13 @@ interface ContextType {
 const iconMap: Record<string, React.ReactNode> = {
   Shield: <Shield className="w-7 h-7 text-gold" />,
   Zap: <Zap className="w-7 h-7 text-gold" />,
+  Flame: <Flame className="w-7 h-7 text-gold" />,
   Droplets: <Droplets className="w-7 h-7 text-gold" />,
-  Trees: <Trees className="w-7 h-7 text-gold" />,
+  Filter: <Filter className="w-7 h-7 text-gold" />,
   Sparkles: <Sparkles className="w-7 h-7 text-gold" />,
+  Trees: <Trees className="w-7 h-7 text-gold" />,
+  Bug: <Bug className="w-7 h-7 text-gold" />,
+  Building: <Building className="w-7 h-7 text-gold" />,
 };
 
 export const ServiceDetailPage: React.FC = () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { SEO } from '../components/common/SEO';
 import { Hero } from '../sections/home/Hero';
+import { CommunityZoneSection } from '../sections/home/CommunityZoneSection';
 import { Introduction } from '../sections/home/Introduction';
 import { ServicesSection } from '../sections/home/ServicesSection';
 import { WhyChooseUs } from '../sections/home/WhyChooseUs';
@@ -21,11 +22,12 @@ export const HomePage: React.FC = () => {
     <>
       <SEO
         title="Sri Thrayi Facility | Facility Management Services in Hyderabad"
-        description="Sri Thrayi Facility provides security, electrical, plumbing, landscaping and housekeeping services for properties in Hyderabad."
+        description="Sri Thrayi Facility provides security, electrical, fire safety, plumbing, WTP & STP, housekeeping, landscaping, pesticide, and clubhouse management services in Hyderabad."
         canonicalPath="/"
       />
 
       <Hero onRequestAssessment={openAssessmentModal} />
+      <CommunityZoneSection onRequestAssessment={openAssessmentModal} />
       <Introduction />
       <ServicesSection />
       <WhyChooseUs />
