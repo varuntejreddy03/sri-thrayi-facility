@@ -77,8 +77,8 @@ export const Hero: React.FC<HeroProps> = ({ onRequestAssessment }) => {
             <div className="absolute inset-0 bg-gradient-to-r from-obsidian/60 via-transparent to-obsidian/40 pointer-events-none" />
             <div className="absolute inset-0 ring-1 ring-inset ring-gold/25 rounded-2xl sm:rounded-3xl pointer-events-none" />
 
-            {/* ── Overlay Bottom Action Bar & Headline ── */}
-            <div className="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-8 z-20">
+            {/* ── Desktop Overlay Bottom Action Bar (Hidden on mobile) ── */}
+            <div className="hidden sm:block absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8 z-20">
               <div className="max-w-3xl space-y-4">
 
                 <div className="hero-content-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-obsidian/85 border border-gold/40 text-gold backdrop-blur-md">
@@ -129,6 +129,53 @@ export const Hero: React.FC<HeroProps> = ({ onRequestAssessment }) => {
               </div>
             </div>
 
+          </div>
+
+          {/* ── Mobile Dedicated Content Card (Clean, Unblocked 3D Crest) ── */}
+          <div className="sm:hidden p-5 bg-charcoal-950 border-t border-gold/25 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-charcoal-900 border border-gold/35 text-gold text-[10px] font-semibold uppercase tracking-wider">
+              <ShieldCheck className="w-3.5 h-3.5 text-gold shrink-0" />
+              <span>Integrated Facility Management</span>
+            </div>
+
+            <h1 className="font-serif text-2xl font-normal text-white leading-snug tracking-tight">
+              We Manage <span className="text-gold-gradient italic">Every Corner</span> of Your Property
+            </h1>
+
+            <p className="text-xs text-softgrey font-light leading-relaxed">
+              Consolidate your security, electrical, plumbing, housekeeping, fire safety, landscaping, and community amenities through one disciplined partner.
+            </p>
+
+            {/* Mobile Touch-Friendly CTAs */}
+            <div className="space-y-2.5 pt-1">
+              <button
+                onClick={onRequestAssessment}
+                className="w-full py-3 bg-gradient-to-r from-gold via-gold-light to-gold text-obsidian font-bold text-xs rounded-lg shadow-gold-hover flex items-center justify-center gap-2 border border-gold/50"
+              >
+                <span>Request Site Assessment</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-2.5 rounded-lg bg-charcoal-900 border border-emerald-500/40 text-ivory text-xs font-semibold flex items-center justify-center gap-1.5"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>WhatsApp</span>
+                </a>
+
+                <button
+                  onClick={scrollToCommunity}
+                  className="py-2.5 rounded-lg bg-charcoal-900 border border-gold/30 text-gold text-xs font-semibold flex items-center justify-center gap-1"
+                >
+                  <span>Explore Tour</span>
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Bottom HUD Bar */}

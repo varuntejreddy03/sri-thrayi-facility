@@ -71,6 +71,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onRequestAssessment }) => {
     setServicesDropdownOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const whatsappUrl = `https://wa.me/91${COMPANY_CONFIG.contact.whatsappRaw}?text=${encodeURIComponent(
     'Hello Sri Thrayi Facility, I would like to inquire about your facility management services.'
   )}`;
@@ -256,11 +267,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onRequestAssessment }) => {
             </button>
           </div>
 
-          {/* Mobile Actions */}
+          {/* Mobile Actions: Clean & Uncrowded */}
           <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={onRequestAssessment}
-              className="px-3 py-1.5 bg-gold text-obsidian font-bold text-xs rounded hover:bg-gold-light transition-all"
+              className="hidden sm:inline-flex px-3 py-1.5 bg-gold text-obsidian font-bold text-xs rounded hover:bg-gold-light transition-all"
             >
               Assessment
             </button>
@@ -268,16 +279,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onRequestAssessment }) => {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="p-2 text-ivory hover:text-gold rounded border border-charcoal-700 hover:border-gold/40 transition-colors focus:outline-none"
+              className="p-2 text-ivory hover:text-gold rounded-lg border border-charcoal-700 bg-charcoal-900/80 hover:border-gold/40 transition-colors focus:outline-none"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-gold" /> : <Menu className="w-5 h-5 text-gold" />}
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Full-Screen / Slide-in Drawer */}
-        {mobileMenuOpen && (
-          <div className="fixed inset-0 top-[68px] sm:top-[74px] z-30 bg-obsidian-950/98 backdrop-blur-2xl border-t border-charcoal-800 lg:hidden overflow-y-auto px-6 py-8 flex flex-col justify-between">
+      {/* Mobile Full-Screen Slide-in Drawer (Outside header to avoid CSS transform clipping) */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 top-[56px] sm:top-[64px] z-50 bg-obsidian-950/98 backdrop-blur-2xl border-t border-charcoal-800 lg:hidden overflow-y-auto px-6 py-8 flex flex-col justify-between">
             <div className="space-y-6">
               <nav className="flex flex-col space-y-4 text-base font-medium">
                 <Link
@@ -392,7 +404,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onRequestAssessment }) => {
             </div>
           </div>
         )}
-      </header>
     </>
   );
 };
